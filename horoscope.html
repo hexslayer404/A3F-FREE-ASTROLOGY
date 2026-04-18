@@ -210,146 +210,136 @@ document.getElementById("result").innerHTML=
 </script>
 
 </body>
-</html>  margin-bottom:20px;
-}
-
-.card {
-  background:#141419;
-  padding:20px;
-  border-radius:15px;
-  margin-top:15px;
-  border:1px solid #c2a35d22;
-}
-
-select, button {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:10px;
-  border:none;
-  font-size:14px;
-}
-
-button {
-  background:#c2a35d;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:hover {
-  opacity:0.9;
-}
-
-.result {
-  margin-top:20px;
-  color:#82e0aa;
-  line-height:1.7;
-  font-size:15px;
-}
-
-.back {
-  display:block;
-  text-align:center;
-  margin-top:25px;
-  color:#c2a35d;
-  text-decoration:none;
-}
-
-.seo-text {
-  font-size:14px;
-  color:#aaa;
-  line-height:1.6;
-  margin-top:20px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>🔮 ഇന്നത്തെ രാശിഫലം</h1>
-<div class="date" id="date"></div>
-
-<div class="card">
-<h3>നിങ്ങളുടെ രാശി തിരഞ്ഞെടുക്കുക</h3>
-
-<select id="rashi">
-<option value="">-- രാശി തിരഞ്ഞെടുക്കുക --</option>
-<option>മേടം</option>
-<option>ഇടവം</option>
-<option>മിഥുനം</option>
-<option>കർക്കിടകം</option>
-<option>ചിങ്ങം</option>
-<option>കന്നി</option>
-<option>തുലാം</option>
-<option>വൃശ്ചികം</option>
-<option>ധനു</option>
-<option>മകരം</option>
-<option>കുംഭം</option>
+</html><option>കുംഭം</option>
 <option>മീനം</option>
 </select>
 
-<button onclick="showHoroscope()">Get Today's Prediction</button>
+<button onclick="showHoroscope()">Get Detailed Prediction</button>
 
 <div class="result" id="result"></div>
 </div>
 
+<!-- STATIC SEO -->
 <div class="card">
-<h3>ഇന്നത്തെ ജ്യോതിഷ പ്രവചനങ്ങൾ</h3>
-<p class="seo-text">
-ഇവിടെ നിങ്ങൾക്ക് എല്ലാ രാശികൾക്കും ഇന്നത്തെ രാശിഫലം ലഭിക്കും. 
-കേരളത്തിലെ മലയാളികൾക്ക് വേണ്ടി daily updated astrology predictions.
-മേടം മുതൽ മീനം വരെ എല്ലാ രാശികളുടെ ഫലങ്ങൾ ഇവിടെ ലഭ്യമാണ്.
-</p>
-</div>
+<h3>All Rashi Detailed Predictions</h3>
 
-<a href="index.html" class="back">← Back to Home</a>
+<p><b>മേടം:</b> Career വളർച്ച, പുതിയ അവസരങ്ങൾ, എന്നാൽ തീരുമാനങ്ങളിൽ സൂക്ഷിക്കുക.</p>
+<p><b>ഇടവം:</b> സാമ്പത്തിക മാറ്റങ്ങൾ, ചെലവ് നിയന്ത്രണം ആവശ്യമാണ്.</p>
+<p><b>മിഥുനം:</b> Communication strength, പുതിയ ബന്ധങ്ങൾ ഉണ്ടാകും.</p>
+<p><b>കർക്കിടകം:</b> കുടുംബത്തിൽ സന്തോഷം, എന്നാൽ emotional control വേണം.</p>
+<p><b>ചിങ്ങം:</b> Leadership quality ഉയരും, career boost ലഭിക്കും.</p>
+<p><b>കന്നി:</b> ആരോഗ്യ പ്രശ്നങ്ങൾ ചെറിയ തോതിൽ വരാം.</p>
+<p><b>തുലാം:</b> Relationship stable, love life മെച്ചപ്പെടും.</p>
+<p><b>വൃശ്ചികം:</b> പ്രധാന തീരുമാനങ്ങൾ എടുക്കേണ്ട ദിവസം.</p>
+<p><b>ധനു:</b> യാത്രയും പുതിയ അനുഭവങ്ങളും.</p>
+<p><b>മകരം:</b> കഠിനാധ്വാനം വിജയത്തിലേക്ക് നയിക്കും.</p>
+<p><b>കുംഭം:</b> പുതിയ ആശയങ്ങൾ വിജയത്തിലേക്ക് മാറും.</p>
+<p><b>മീനം:</b> വിശ്രമവും ആത്മപരിശോധനയും ആവശ്യമാണ്.</p>
 
-<!-- Hidden SEO Keywords -->
-<div style="display:none">
-മേടം രാശിഫലം, ഇടവം രാശിഫലം, മിഥുനം രാശിഫലം,
-കർക്കിടകം രാശിഫലം, ചിങ്ങം രാശിഫലം,
-കന്നി രാശിഫലം, തുലാം രാശിഫലം,
-വൃശ്ചികം രാശിഫലം, ധനു രാശിഫലം,
-മകരം രാശിഫലം, കുംഭം രാശിഫലം, മീനം രാശിഫലം
 </div>
 
 </div>
 
 <script>
 
-// Date display
-let today = new Date();
-document.getElementById("date").innerHTML = today.toDateString();
-
-// Horoscope Data
 function showHoroscope(){
-let rashi = document.getElementById("rashi").value;
+
+let rashi=document.getElementById("rashi").value;
 
 if(!rashi){
-alert("ദയവായി രാശി തിരഞ്ഞെടുക്കുക");
+alert("രാശി തിരഞ്ഞെടുക്കുക");
 return;
 }
 
-let predictions = {
-"മേടം":"ഇന്ന് നിങ്ങൾക്ക് നല്ല ദിവസം. പുതിയ അവസരങ്ങൾ വരാം.",
-"ഇടവം":"സാമ്പത്തിക കാര്യങ്ങളിൽ ശ്രദ്ധിക്കുക. ചില ചെലവുകൾ വരാം.",
-"മിഥുനം":"സുഹൃത്തുക്കളുമായി നല്ല സമയം ചെലവിടും.",
-"കർക്കിടകം":"കുടുംബത്തിൽ സന്തോഷം ഉണ്ടാകും.",
-"ചിങ്ങം":"Career growth കാണുന്ന ദിവസം.",
-"കന്നി":"Health ശ്രദ്ധിക്കുക. വിശ്രമം ആവശ്യമാണ്.",
-"തുലാം":"Relationship strong ആവും.",
-"വൃശ്ചികം":"Important decision എടുക്കേണ്ട ദിവസം.",
-"ധനു":"Travel chances ഉണ്ട്.",
-"മകരം":"Hard work reward ചെയ്യും.",
-"കുംഭം":"New ideas വരും.",
-"മീനം":"Relax ചെയ്യേണ്ട ദിവസം."
+let data={
+
+"മേടം":{
+career:"Careerയിൽ വളർച്ച. പുതിയ അവസരങ്ങൾ വരും.",
+love:"Love life stable. പുതിയ പരിചയങ്ങൾ ഉണ്ടാകും.",
+health:"Energy നല്ലതാണ്, പക്ഷേ stress ഒഴിവാക്കണം."
+},
+
+"ഇടവം":{
+career:"Job pressure കൂടും.",
+love:"Misunderstanding സാധ്യത.",
+health:"Diet ശ്രദ്ധിക്കുക."
+},
+
+"മിഥുനം":{
+career:"Communication skill വഴി success.",
+love:"New connection ഉണ്ടാകും.",
+health:"Normal."
+},
+
+"കർക്കിടകം":{
+career:"Slow progress.",
+love:"Family support strong.",
+health:"Emotional stress ശ്രദ്ധിക്കുക."
+},
+
+"ചിങ്ങം":{
+career:"Leadership ഉയരും.",
+love:"Partner support ഉണ്ടാകും.",
+health:"Good energy."
+},
+
+"കന്നി":{
+career:"Hard work ആവശ്യമാണ്.",
+love:"Silent phase.",
+health:"Rest ആവശ്യമാണ്."
+},
+
+"തുലാം":{
+career:"Balance maintain ചെയ്യണം.",
+love:"Relationship improve ചെയ്യും.",
+health:"Normal."
+},
+
+"വൃശ്ചികം":{
+career:"Decision day.",
+love:"Deep connection.",
+health:"Stress control."
+},
+
+"ധനു":{
+career:"Travel opportunity.",
+love:"Exciting changes.",
+health:"Active day."
+},
+
+"മകരം":{
+career:"Hard work reward ചെയ്യും.",
+love:"Stable.",
+health:"Strong."
+},
+
+"കുംഭം":{
+career:"Creative ideas success.",
+love:"Unexpected bonding.",
+health:"Good."
+},
+
+"മീനം":{
+career:"Slow but steady.",
+love:"Emotional connection.",
+health:"Rest needed."
+}
+
 };
 
-document.getElementById("result").innerHTML =
-"<b>"+rashi+"</b>: "+predictions[rashi] +
-"<br><br>🔒 Detailed prediction unlock ചെയ്യാൻ main page സന്ദർശിക്കുക.";
+let d=data[rashi];
+
+document.getElementById("result").innerHTML=
+
+"<b>"+rashi+"</b><br><br>"+
+
+"<span class='highlight'>💼 Career:</span> "+d.career+"<br><br>"+
+"<span class='highlight'>❤️ Love:</span> "+d.love+"<br><br>"+
+"<span class='highlight'>🧘 Health:</span> "+d.health+"<br><br>"+
+
+"<span class='warn'>⚠️ ഇത് basic AI prediction ആണ്.</span><br>"+
+"🔒 Full personal prediction കാണാൻ Home pageൽ പോകുക.";
+
 }
 
 </script>
