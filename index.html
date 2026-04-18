@@ -72,8 +72,17 @@
         .social-proof { color: var(--success); font-size: 12px; font-weight: bold; margin-bottom: 12px; }
         .feature-item { font-size: 13px; color: #ccc; margin-bottom: 6px; display: block; }
 
-        .teaser-box { margin-top: 30px; padding: 20px; border-radius: 18px; border: 1px solid rgba(194, 163, 93, 0.15); font-size: 14px; }
-        
+        /* Payment Modal Style */
+        #pay-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: var(--card); border: 1px solid var(--gold); padding: 30px;
+            border-radius: 20px; text-align: center; width: 85%; max-width: 350px;
+        }
+        .qr-img { width: 180px; height: 180px; margin: 15px 0; border: 5px solid white; border-radius: 10px; }
+
         .seo-content { max-width: 480px; margin: 50px auto; padding: 0 20px; text-align: left; border-top: 1px solid #333; padding-top: 30px; }
         .seo-content h2 { color: var(--gold); font-family: 'Cinzel'; font-size: 20px; }
 
@@ -141,10 +150,25 @@
                 <span class="feature-item">✔ <b>പരിഹാരം:</b> ദോഷങ്ങളും പരിഹാരങ്ങളും.</span>
             </div>
 
-            <button class="ritual-btn" onclick="unlockFull()">REVEAL FULL REPORT (₹50)</button>
+            <button class="ritual-btn" onclick="openPaymentModal()">REVEAL FULL REPORT (₹50)</button>
             
             <p style="color:var(--error); font-size:12px; margin-top: 15px; font-weight: bold;">⏳ Limited Offer: ₹50 ending soon!</p>
             <p style="font-size:11px; color:#666; margin-top: 10px;">✔ Instant AI Analysis • Trusted by 10k+ Malayalis</p>
+        </div>
+    </div>
+
+    <div id="pay-modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold); margin-top:0;">PAY ₹50</h3>
+            <p style="font-size:12px; color:#ccc;">ക്യുആർ കോഡ് സ്കാൻ ചെയ്യുക അല്ലെങ്കിൽ യുപിഐ ബട്ടൺ അമർത്തുക</p>
+            
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=dream9thbetalian@okicici%26pn=Muhammed%20Adhinan%26am=50%26cu=INR" class="qr-img" alt="UPI QR">
+            
+            <button class="ritual-btn" style="margin-top:10px; padding:12px;" onclick="payViaApp()">PAY VIA UPI APP</button>
+            
+            <button class="ritual-btn" style="margin-top:10px; padding:12px; background:linear-gradient(45deg, #25D366, #128C7E);" onclick="sendToWA()">I PAID, SEND REPORT</button>
+            
+            <p style="font-size:10px; color:#888; margin-top:15px; cursor:pointer;" onclick="document.getElementById('pay-modal').style.display='none'">← BACK</p>
         </div>
     </div>
 
@@ -205,35 +229,37 @@
             document.getElementById('prediction-text').innerHTML = text;
         }
 
-        function unlockFull() {
+        function openPaymentModal() {
+            document.getElementById('pay-modal').style.display = 'flex';
+        }
+
+        function payViaApp() {
+            const name = document.getElementById('name').value;
+            const upiId = "dream9thbetalian@okicici";
+            const upiUrl = `upi://pay?pa=${upiId}&pn=MuhammedAdhinan&am=50&cu=INR&tn=A3FReportFor${name}`;
+            window.location.href = upiUrl;
+            
+            // Fallback for desktop users
+            setTimeout(() => {
+                alert("യുപിഐ ആപ്പ് ഓപ്പൺ ആയില്ലെങ്കിൽ ക്യുആർ കോഡ് സ്കാൻ ചെയ്യുക.");
+            }, 2000);
+        }
+
+        function sendToWA() {
             const name = document.getElementById('name').value;
             const dob = document.getElementById('dob').value;
             const tob = document.getElementById('tob').value;
+            const whatsappNum = "916235026761"; 
+            
+            const msg = `🔮 *A3F STELLAR REPORT REQUEST*\n\n` +
+                        `✅ ഞാൻ ₹50 പെയ്‌മെന്റ് പൂർത്തിയാക്കി.\n\n` +
+                        `👤 *പേര്:* ${name}\n` +
+                        `📅 *DOB:* ${dob}\n` +
+                        `⏰ *Time:* ${tob}\n\n` +
+                        `ദയവായി എന്റെ റിപ്പോർട്ട് അയച്ചു തരൂ. സ്ക്രീൻഷോട്ട് താഴെ നൽകുന്നു 👇`;
 
-            const upiId = "dream9thbetalian@okicici";
-            const upiName = "Muhammed Adhinan"; 
-            const amount = "50.00";
-            const note = `A3F Report for ${name}`;
-
-            const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(upiName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
-            window.location.href = upiUrl;
-
-            setTimeout(() => {
-                const whatsappNum = "916235026761"; 
-                const msg = `🔮 *A3F STELLAR REPORT REQUEST*\n\n` +
-                            `✅ ഞാൻ പെയ്‌മെന്റ് പൂർത്തിയാക്കി.\n\n` +
-                            `👤 *പേര്:* ${name}\n` +
-                            `📅 *DOB:* ${dob}\n` +
-                            `⏰ *Time:* ${tob}\n\n` +
-                            `ദയവായി എന്റെ ഡീറ്റെയിൽഡ് റിപ്പോർട്ട് അയച്ചു തരൂ.`;
-
-                const waUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(msg)}`;
-                const btn = document.querySelector('.payment-box .ritual-btn');
-                btn.innerText = "SEND DETAILS & SCREENSHOT";
-                btn.style.background = "linear-gradient(45deg, #25D366, #128C7E)";
-                btn.onclick = () => { window.location.href = waUrl; };
-                alert("പെയ്‌മെന്റ് കഴിഞ്ഞ് സ്ക്രീൻഷോട്ട് അയക്കാൻ വാട്സാപ്പ് ബട്ടൺ അമർത്തുക.");
-            }, 3000);
+            const waUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(msg)}`;
+            window.location.href = waUrl;
         }
     </script>
 </body>
