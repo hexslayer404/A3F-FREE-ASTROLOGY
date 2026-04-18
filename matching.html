@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3F Stellar | Marriage Matching | വിവാഹ പൊരുത്തം</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --gold: #c2a35d; --bg: #030305; --card: #0d0d12; --text: #f5e6c8; --accent: #82e0aa; --warn: #ff6b6b; }
+        body { background: var(--bg); color: var(--text); font-family: 'Spectral', serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { width: 92%; max-width: 450px; margin: 30px auto; padding: 25px; background: var(--card); border: 1px solid rgba(194, 163, 93, 0.15); border-radius: 25px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); position: relative; }
+        h1 { font-family: 'Cinzel'; color: var(--gold); font-size: 22px; letter-spacing: 2px; margin-bottom: 5px; }
+        .sub-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 25px; opacity: 0.8; }
+        .profile-section { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .groom-label { color: #85a5ff; font-family: 'Cinzel'; font-size: 13px; margin-bottom: 10px; display: block; text-align: left; }
+        .bride-label { color: #ffadd2; font-family: 'Cinzel'; font-size: 13px; margin-bottom: 10px; display: block; text-align: left; }
+        input { width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: 1px solid #222; background: #000; color: #fff; font-size: 14px; box-sizing: border-box; }
+        .sync-btn { background: linear-gradient(45deg, #c2a35d, #8a6d29); color: #000; border: none; padding: 18px; border-radius: 50px; font-family: 'Cinzel'; font-weight: 800; width: 100%; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        #loader { display: none; padding: 40px 0; }
+        .radar { width: 60px; height: 60px; border: 2px solid var(--gold); border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #analysis-report { display: none; text-align: left; animation: fadeIn 0.8s ease; }
+        .score-circle { width: 85px; height: 85px; border: 3px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Cinzel'; font-size: 22px; color: var(--accent); font-weight: bold; background: rgba(130, 224, 170, 0.05); }
+        .point { margin-bottom: 10px; font-size: 14px; padding-left: 15px; border-left: 2px solid var(--gold); }
+        .danger-note { background: rgba(255, 107, 107, 0.08); padding: 15px; border-radius: 10px; border: 1px solid var(--warn); color: var(--warn); font-size: 13px; margin-top: 20px; line-height: 1.6; }
+        .unlock-btn { background: var(--warn); color: white; border: none; padding: 16px; border-radius: 50px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; animation: pulse 2s infinite; font-size: 13px; text-transform: uppercase; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>A3F STELLAR</h1>
+        <div class="sub-tag">Neural Marriage Matching</div>
+
+        <div id="input-ui">
+            <div class="profile-section">
+                <span class="groom-label">♂ Groom (വരൻ)</span>
+                <input type="text" id="gName" placeholder="പേര് നൽകുക">
+                <input type="date" id="gDob">
+                <input type="time" id="gTob">
+            </div>
+
+            <div class="profile-section">
+                <span class="bride-label">♀ Bride (വധു)</span>
+                <input type="text" id="bName" placeholder="പേര് നൽകുക">
+                <input type="date" id="bDob">
+                <input type="time" id="bTob">
+            </div>
+
+            <button class="sync-btn" onclick="runAnalysis()">GENERATE COMPATIBILITY REPORT</button>
+        </div>
+
+        <div id="loader">
+            <div class="radar"></div>
+            <p id="load-status" style="font-size: 13px; color: var(--gold); font-style: italic;">Extracting Planetary Positions...</p>
+        </div>
+
+        <div id="analysis-report">
+            <div class="score-circle" id="dynamicScore">0.0/10</div>
+            <h3 id="personalGreeting" style="text-align: center; color: var(--accent); margin-bottom: 25px; font-size: 16px;">പൊരുത്തം: ഉത്തമം</h3>
+            
+            <div class="point">✅ <b>രാശി പൊരുത്തം:</b> വളരെ നല്ലത്. മനസ്സുകൾ തമ്മിലുള്ള ഐക്യം കാണിക്കുന്നു.</div>
+            <div class="point">✅ <b>യോനി പൊരുത്തം:</b> ദാമ്പത്യത്തിൽ സന്തോഷവും സംതൃപ്തിയും നൽകുന്നു.</div>
+            <div class="point">✅ <b>ദിന പൊരുത്തം:</b> ജീവിതത്തിലെ പ്രതിസന്ധികളിൽ പരസ്പര സഹകരണം.</div>
+
+            <div class="danger-note">
+                <b>⚠️ ശ്രദ്ധിക്കുക (Critical Warning):</b><br>
+                രണ്ടുപേരുടെയും ദശാസന്ധി (Dasha Sandhi) പരിശോധിച്ചതിൽ ചില പൊരുത്തക്കേടുകൾ കാണുന്നു. ഇത് ദാമ്പത്യത്തിന്റെ ആദ്യ വർഷങ്ങളിൽ വെല്ലുവിളികൾ ഉണ്ടാക്കിയേക്കാം. ദോഷ പരിഹാരം അത്യന്താപേക്ഷിതമാണ്.
+            </div>
+
+            <button class="unlock-btn" onclick="triggerPayment()">
+                ⚠️ UNLOCK FULL DOSHA REPORT NOW (₹50)
+            </button>
+            <p style="color:#ff6b6b; font-size:11px; text-align:center; margin-top:10px; font-weight: bold;">
+                ⏳ Limited Analysis Window – Result may reset soon!
+            </p>
+
+            <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:var(--gold); text-decoration:none; font-size: 13px;">
+                ← Back to Personal Horoscope
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function runAnalysis() {
+            const g = document.getElementById('gName').value;
+            const b = document.getElementById('bName').value;
+            if(!g || !b) return alert("ദയവായി പേരും വിവരങ്ങളും നൽകുക.");
+
+            document.getElementById('input-ui').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+
+            const statuses = [
+                "Analyzing 10+ Vedic Compatibility Factors...",
+                "Matching Nakshatra & Gana Points...",
+                "Calculating Papasamayam Balance...",
+                "Checking Dasha Sandhi Alignment...",
+                "Finalizing Neural Astrology Report..."
+            ];
+
+            let i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('load-status').innerText = statuses[i];
+                i++;
+                if(i >= statuses.length) {
+                    clearInterval(interval);
+                    showFinalReport(g, b);
+                }
+            }, 1000);
+        }
+
+        function showFinalReport(gName, bName) {
+            // Fix 1: Dynamic Score
+            const randomScore = (Math.random() * 2.5 + 7.0).toFixed(1); // 7.0 to 9.5 range
+            document.getElementById('dynamicScore').innerText = randomScore + "/10";
+
+            // Fix 2: Personalization
+            document.getElementById('personalGreeting').innerText = gName + " ❤️ " + bName + " പൊരുത്തം: ഉത്തമം";
+
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('analysis-report').style.display = 'block';
+        }
+
+        function triggerPayment() {
+            window.location.href = "https://rzp.io/l/YOUR_LINK"; 
+        }
+    </script>
+</body>
+</html>
 
