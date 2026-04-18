@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3F Astrology AI | Neural Vedic Oracle</title>
+    
+    <meta name="description" content="Advanced AI-powered Vedic Astrology in Malayalam. Get your precise Kundli and life predictions.">
+    <meta name="robots" content="index, follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Spectral:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --gold: #c2a35d; --bg: #050508; --card: rgba(20, 20, 25, 0.95); --text: #f5e6c8; }
+        
+        body { 
+            background: radial-gradient(circle at top, #1a1a2e 0%, var(--bg) 100%); 
+            color: var(--text); 
+            font-family: 'Spectral', serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container { 
+            width: 90%; 
+            max-width: 480px; 
+            margin: 30px auto; 
+            padding: 25px; 
+            background: var(--card); 
+            border: 1px solid rgba(194, 163, 93, 0.2); 
+            border-radius: 20px; 
+            box-shadow: 0 10px 60px rgba(0,0,0,0.9); 
+            text-align: center; 
+            animation: fadeIn 1s ease;
+        }
+
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 5px; margin-bottom: 5px; font-size: 26px; }
+        
+        .trust-badge { 
+            color: #82e0aa; 
+            font-size: 11px; 
+            margin-bottom: 20px; 
+            border-bottom: 1px solid rgba(194, 163, 93, 0.1); 
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 11px; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+
+        input { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(194, 163, 93, 0.3); 
+            color: white; 
+            padding: 12px; 
+            border-radius: 8px; 
+            width: 90%; 
+            text-align: center; 
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+
+        .ritual-btn { 
+            background: linear-gradient(45deg, #c2a35d, #8a6d29); 
+            color: #000; 
+            border: none; 
+            padding: 16px; 
+            font-family: 'Cinzel', serif; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: 0.4s; 
+            width: 100%; 
+            margin-top: 20px; 
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        .ritual-btn:hover { box-shadow: 0 0 25px var(--gold); transform: scale(1.02); }
+        .ritual-btn:disabled { opacity: 0.4; transform: none; cursor: not-allowed; }
+
+        .kundli-box { width: 320px; height: 320px; margin: 30px auto; position: relative; display: none; }
+        .kundli-svg { width: 100%; height: 100%; stroke: var(--gold); stroke-width: 1.5; fill: none; }
+        
+        .house-label { position: absolute; font-size: 10px; width: 60px; text-align: center; line-height: 1.2; color: #ccc; }
+
+        #loader { display: none; margin: 30px 0; }
+        .spinner { width: 30px; height: 30px; border: 2px solid var(--gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #result-card { display: none; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; margin-top: 25px; text-align: left; border-left: 3px solid var(--gold); font-size: 15px; line-height: 1.6; }
+
+        .payment-box { margin-top: 25px; padding: 20px; border: 1px dashed #ff4444; border-radius: 15px; display: none; background: rgba(255,0,0,0.05); }
+
+        .social-proof { color: #82e0aa; font-size: 12px; margin-bottom: 12px; font-weight: bold; }
+        .feature-item { font-size: 13px; color: #ccc; margin-bottom: 5px; display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>A3F STELLAR</h1>
+    <div class="trust-badge">
+        ✔ Bṛhat Parāśara Horā Śāstra Calculations<br>
+        ✔ Swiss Ephemeris Accuracy
+    </div>
+
+    <div id="setup">
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="നിങ്ങളുടെ പേര്">
+        </div>
+        <div class="input-group">
+            <label>Birth Date</label>
+            <input type="date" id="dob">
+        </div>
+        <div class="input-group">
+            <label>Birth Time</label>
+            <input type="time" id="tob">
+        </div>
+        <button class="ritual-btn" id="mainBtn" onclick="initiateOracle()">SYNTHESIZE DESTINY</button>
+        <p style="font-size: 10px; color: #555; margin-top: 15px; letter-spacing: 1px;">THE FUTURE • V9.5</p>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="statusText" style="font-style: italic; color: var(--gold); font-size: 13px;">Connecting to Celestial Nodes...</p>
+    </div>
+
+    <div class="kundli-box" id="chart">
+        <svg class="kundli-svg" viewBox="0 0 400 400">
+            <path d="M0 0 L400 400 M400 0 L0 400 M200 0 L400 200 L200 400 L0 200 Z" />
+            <rect x="0" y="0" width="400" height="400" />
+        </svg>
+        <div style="position:absolute; top:190px; left:170px; color:var(--gold); font-size:10px; font-family:'Cinzel';">Lagna</div>
+        <div class="house-label" style="top:90px; left:170px;" id="h1"></div>
+        <div class="house-label" style="top:40px; left:70px;" id="h2"></div>
+        <div class="house-label" style="top:100px; left:20px;" id="h3"></div>
+        <div class="house-label" style="top:190px; left:170px;" id="h4"></div>
+        <div class="house-label" style="top:250px; left:70px;" id="h5"></div>
+        <div class="house-label" style="top:250px; left:270px;" id="h6"></div>
+        <div class="house-label" style="top:190px; left:300px;" id="h7"></div>
+        <div class="house-label" style="top:100px; left:330px;" id="h8"></div>
+        <div class="house-label" style="top:20px; left:170px;" id="h9"></div>
+        <div class="house-label" style="top:100px; left:260px;" id="h10"></div>
+        <div class="house-label" style="top:10px; left:280px;" id="h11"></div>
+        <div class="house-label" style="top:100px; left:110px;" id="h12"></div>
+    </div>
+
+    <div id="result-card">
+        <h3 style="margin:0 0 10px 0; color:var(--gold); font-family: 'Cinzel'; font-size: 14px; letter-spacing: 1px;">Cosmic Analysis</h3>
+        <div id="prediction-text" style="color: #e5e7eb;"></div>
+    </div>
+
+    <div class="payment-box" id="pay-box">
+        <div class="social-proof">🔥 93% Users Unlock Full Report</div>
+        <p style="font-size:13px; color:#f5e6c8; margin-bottom: 10px;">നിങ്ങളുടെ ജാതകത്തിലെ പ്രധാന രഹസ്യങ്ങൾ ലോക്ക് ചെയ്തിരിക്കുന്നു.</p>
+        <div style="text-align: left; display: inline-block; margin-bottom: 15px;">
+            <span class="feature-item">• കരിയറിലെ സുവർണ്ണ കാലഘട്ടം</span>
+            <span class="feature-item">• വിവാഹ തീയതിയും വിവാഹ ജീവിതവും</span>
+            <span class="feature-item">• പരിഹാരങ്ങൾ (Remedies)</span>
+        </div>
+        <button class="ritual-btn" onclick="unlockFull()">REVEAL FULL DESTINY (₹50)</button>
+    </div>
+</div>
+
+<script>
+    let userLat = 11.25; 
+    let userLon = 75.78;
+
+    function initiateOracle() {
+        const name = document.getElementById('name').value;
+        const dob = document.getElementById('dob').value;
+        const tob = document.getElementById('tob').value;
+        const mainBtn = document.getElementById('mainBtn');
+
+        if (mainBtn.disabled) return;
+        if (!name || !dob || !tob) return alert("ദയവായി എല്ലാ വിവരങ്ങളും നൽകുക.");
+        
+        mainBtn.disabled = true;
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+
+        if (navigator.geolocation) {
+            document.getElementById('statusText').innerText = "Getting location for better accuracy...";
+            navigator.geolocation.getCurrentPosition(
+                (pos) => { userLat = pos.coords.latitude; userLon = pos.coords.longitude; fetchAstroData(dob, tob); },
+                () => { fetchAstroData(dob, tob); }, { timeout: 4000 }
+            );
+        } else { fetchAstroData(dob, tob); }
+    }
+
+    async function fetchAstroData(dob, tob) {
+        const statusText = document.getElementById('statusText');
+        const phrases = ["Plotting Celestial Spheres...", "Consulting Neural Nodes...", "Finalizing Destiny Patterns..."];
+        let i = 0;
+        const interval = setInterval(() => {
+            statusText.innerText = phrases[i % phrases.length];
+            i++;
+        }, 1200);
+
+        try {
+            const res = await fetch("https://adhi666.pythonanywhere.com/api/predict_expert", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date: dob, time: tob, lat: userLat, lon: userLon })
+            });
+
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            
+            clearInterval(interval);
+            renderResults(data);
+        } catch (err) {
+            clearInterval(interval);
+            alert("Connection failure. Please ensure your backend is live.");
+            location.reload();
+        }
+    }
+
+    function renderResults(data) {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('chart').style.display = 'block';
+        document.getElementById('result-card').style.display = 'block';
+        document.getElementById('pay-box').style.display = 'block';
+
+        document.getElementById('h1').innerHTML = `<span style="color:var(--gold)">${data.lagna || 'Asc'}</span>`;
+        document.getElementById('h7').innerHTML = `<span style="color:#82e0aa">Moon</span>`;
+        document.getElementById('h10').innerHTML = `<span style="color:#ff6b6b">Sun</span>`;
+
+        let text = `<b>ജ്യോതിഷ വിശകലനം:</b> നിങ്ങളുടെ രാശി <b>${data.rashi || 'കണക്കാക്കുന്നു'}</b>, നക്ഷത്രം <b>${data.nakshatra || data.score + '/10'}</b> ആണെന്ന് കാണുന്നു.<br><br>`;
+        text += `നിങ്ങളുടെ ഗ്രഹനില അനുസരിച്ച് ഇപ്പോൾ ഒരു മാറ്റത്തിന്റെ കാലഘട്ടമാണ്. കൂടുതൽ കൃത്യമായ വിവരങ്ങൾ താഴെ കാണാം.`;
+        
+        document.getElementById('prediction-text').innerHTML = text;
+    }
+
+    function unlockFull() {
+        const upiUrl = "upi://pay?pa=m.c.27@superyes&pn=A3F_Stellar&am=50&tn=A3F_Premium_Report&cu=INR";
+        window.location.assign(upiUrl);
+    }
+</script>
+
+</body>
+</html>
