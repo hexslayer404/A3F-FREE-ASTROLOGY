@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Today Horoscope Malayalam 2026 | ഇന്നത്തെ രാശിഫലം</title>
+
+<meta name="description" content="ഇന്നത്തെ രാശിഫലം മലയാളത്തിൽ. എല്ലാ 12 രാശികൾക്കും daily horoscope Malayalam 2026.">
+
+<meta name="keywords" content="today horoscope malayalam, rashifalam, jathakam malayalam, astrology kerala">
+
+<style>
+body {
+  background:#050508;
+  color:#f5e6c8;
+  font-family: 'Segoe UI', sans-serif;
+  margin:0;
+  padding:20px;
+}
+
+.container {
+  max-width:600px;
+  margin:auto;
+}
+
+h1 {
+  color:#c2a35d;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.date {
+  text-align:center;
+  color:#82e0aa;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.card {
+  background:#141419;
+  padding:20px;
+  border-radius:15px;
+  margin-top:15px;
+  border:1px solid #c2a35d22;
+}
+
+select, button {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  font-size:14px;
+}
+
+button {
+  background:#c2a35d;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover {
+  opacity:0.9;
+}
+
+.result {
+  margin-top:20px;
+  color:#82e0aa;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.back {
+  display:block;
+  text-align:center;
+  margin-top:25px;
+  color:#c2a35d;
+  text-decoration:none;
+}
+
+.seo-text {
+  font-size:14px;
+  color:#aaa;
+  line-height:1.6;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔮 ഇന്നത്തെ രാശിഫലം</h1>
+<div class="date" id="date"></div>
+
+<div class="card">
+<h3>നിങ്ങളുടെ രാശി തിരഞ്ഞെടുക്കുക</h3>
+
+<select id="rashi">
+<option value="">-- രാശി തിരഞ്ഞെടുക്കുക --</option>
+<option>മേടം</option>
+<option>ഇടവം</option>
+<option>മിഥുനം</option>
+<option>കർക്കിടകം</option>
+<option>ചിങ്ങം</option>
+<option>കന്നി</option>
+<option>തുലാം</option>
+<option>വൃശ്ചികം</option>
+<option>ധനു</option>
+<option>മകരം</option>
+<option>കുംഭം</option>
+<option>മീനം</option>
+</select>
+
+<button onclick="showHoroscope()">Get Today's Prediction</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<div class="card">
+<h3>ഇന്നത്തെ ജ്യോതിഷ പ്രവചനങ്ങൾ</h3>
+<p class="seo-text">
+ഇവിടെ നിങ്ങൾക്ക് എല്ലാ രാശികൾക്കും ഇന്നത്തെ രാശിഫലം ലഭിക്കും. 
+കേരളത്തിലെ മലയാളികൾക്ക് വേണ്ടി daily updated astrology predictions.
+മേടം മുതൽ മീനം വരെ എല്ലാ രാശികളുടെ ഫലങ്ങൾ ഇവിടെ ലഭ്യമാണ്.
+</p>
+</div>
+
+<a href="index.html" class="back">← Back to Home</a>
+
+<!-- Hidden SEO Keywords -->
+<div style="display:none">
+മേടം രാശിഫലം, ഇടവം രാശിഫലം, മിഥുനം രാശിഫലം,
+കർക്കിടകം രാശിഫലം, ചിങ്ങം രാശിഫലം,
+കന്നി രാശിഫലം, തുലാം രാശിഫലം,
+വൃശ്ചികം രാശിഫലം, ധനു രാശിഫലം,
+മകരം രാശിഫലം, കുംഭം രാശിഫലം, മീനം രാശിഫലം
+</div>
+
+</div>
+
+<script>
+
+// Date display
+let today = new Date();
+document.getElementById("date").innerHTML = today.toDateString();
+
+// Horoscope Data
+function showHoroscope(){
+let rashi = document.getElementById("rashi").value;
+
+if(!rashi){
+alert("ദയവായി രാശി തിരഞ്ഞെടുക്കുക");
+return;
+}
+
+let predictions = {
+"മേടം":"ഇന്ന് നിങ്ങൾക്ക് നല്ല ദിവസം. പുതിയ അവസരങ്ങൾ വരാം.",
+"ഇടവം":"സാമ്പത്തിക കാര്യങ്ങളിൽ ശ്രദ്ധിക്കുക. ചില ചെലവുകൾ വരാം.",
+"മിഥുനം":"സുഹൃത്തുക്കളുമായി നല്ല സമയം ചെലവിടും.",
+"കർക്കിടകം":"കുടുംബത്തിൽ സന്തോഷം ഉണ്ടാകും.",
+"ചിങ്ങം":"Career growth കാണുന്ന ദിവസം.",
+"കന്നി":"Health ശ്രദ്ധിക്കുക. വിശ്രമം ആവശ്യമാണ്.",
+"തുലാം":"Relationship strong ആവും.",
+"വൃശ്ചികം":"Important decision എടുക്കേണ്ട ദിവസം.",
+"ധനു":"Travel chances ഉണ്ട്.",
+"മകരം":"Hard work reward ചെയ്യും.",
+"കുംഭം":"New ideas വരും.",
+"മീനം":"Relax ചെയ്യേണ്ട ദിവസം."
+};
+
+document.getElementById("result").innerHTML =
+"<b>"+rashi+"</b>: "+predictions[rashi] +
+"<br><br>🔒 Detailed prediction unlock ചെയ്യാൻ main page സന്ദർശിക്കുക.";
+}
+
+</script>
+
+</body>
+</html>
