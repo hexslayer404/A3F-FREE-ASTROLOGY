@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A3F Astrology AI | Neural Vedic Oracle | ജാതകം</title>
+    <title>A3F Astrology AI | Neural Vedic Oracle</title>
     
-    <meta name="description" content="Advanced AI-powered Vedic Astrology in Malayalam. Get precise Kundli, Today Horoscope, and Marriage Matching. കേരളത്തിലെ ഏറ്റവും മികച്ച ജ്യോതിഷ സേവനം.">
-    <meta name="keywords" content="Malayalam Kundli, Jathakam online, Today Horoscope Malayalam 2026, Marriage Matching Kerala, Astrology predictions Malayalam, A3F Stellar">
+    <meta name="description" content="Advanced AI-powered Vedic Astrology in Malayalam. Get your precise Kundli and life predictions.">
     <meta name="robots" content="index, follow">
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Spectral:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
     
     <style>
-        :root { --gold: #c2a35d; --bg: #050508; --card: rgba(20, 20, 25, 0.95); --text: #f5e6c8; --success: #82e0aa; --error: #ff6b6b; }
+        :root { --gold: #c2a35d; --bg: #050508; --card: rgba(20, 20, 25, 0.95); --text: #f5e6c8; }
         
         body { 
             background: radial-gradient(circle at top, #1a1a2e 0%, var(--bg) 100%); 
@@ -26,14 +25,205 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
-        .nav-bar { margin-top: 15px; margin-bottom: 10px; z-index: 10; }
-        .nav-bar a { color: var(--gold); text-decoration: none; margin: 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Cinzel'; }
-        .nav-bar a:hover { border-bottom: 1px solid var(--gold); }
+        /* Navigation Style */
+        .nav-bar { margin-top: 15px; margin-bottom: 10px; }
+        .nav-bar a { color: var(--gold); text-decoration: none; margin: 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
 
         .container { 
             width: 90%; 
             max-width: 480px; 
+            margin: 20px auto; 
+            padding: 25px; 
+            background: var(--card); 
+            border: 1px solid rgba(194, 163, 93, 0.2); 
+            border-radius: 20px; 
+            box-shadow: 0 10px 60px rgba(0,0,0,0.9); 
+            text-align: center; 
+            animation: fadeIn 1s ease;
+        }
+
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 5px; margin-bottom: 5px; font-size: 26px; }
+        
+        .trust-badge { 
+            color: #82e0aa; 
+            font-size: 11px; 
+            margin-bottom: 20px; 
+            border-bottom: 1px solid rgba(194, 163, 93, 0.1); 
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 11px; color: var(--gold); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+
+        input { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(194, 163, 93, 0.3); 
+            color: white; 
+            padding: 12px; 
+            border-radius: 8px; 
+            width: 100%; 
+            box-sizing: border-box;
+            text-align: center; 
+            font-size: 16px;
+            outline: none;
+        }
+
+        .ritual-btn { 
+            background: linear-gradient(45deg, #c2a35d, #8a6d29); 
+            color: #000; 
+            border: none; 
+            padding: 16px; 
+            font-family: 'Cinzel', serif; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            width: 100%; 
+            margin-top: 20px; 
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #loader { display: none; margin: 30px 0; }
+        .spinner { width: 30px; height: 30px; border: 2px solid var(--gold); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .kundli-box { width: 300px; height: 300px; margin: 20px auto; position: relative; display: none; }
+        .kundli-svg { width: 100%; height: 100%; stroke: var(--gold); stroke-width: 1.5; fill: none; }
+        
+        #result-card { display: none; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; margin-top: 20px; text-align: left; border-left: 3px solid var(--gold); font-size: 15px; line-height: 1.6; }
+
+        .payment-box { margin-top: 25px; padding: 20px; border: 1px dashed #ff4444; border-radius: 15px; display: none; background: rgba(255,0,0,0.05); }
+        .social-proof { color: #82e0aa; font-size: 12px; margin-bottom: 12px; font-weight: bold; }
+        .feature-item { font-size: 13px; color: #ccc; margin-bottom: 5px; display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <a href="index.html">Home</a>
+    <a href="horoscope.html">Horoscope</a>
+    <a href="matching.html">Matching</a>
+</nav>
+
+<div class="container">
+    <h1>A3F STELLAR</h1>
+    <div class="trust-badge">
+        ✔ Bṛhat Parāśara Horā Śāstra Calculations<br>
+        ✔ Swiss Ephemeris Accuracy
+    </div>
+
+    <div id="setup">
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="name" placeholder="നിങ്ങളുടെ പേര്">
+        </div>
+        <div class="input-group">
+            <label>Birth Date</label>
+            <input type="date" id="dob">
+        </div>
+        <div class="input-group">
+            <label>Birth Time</label>
+            <input type="time" id="tob">
+        </div>
+        <button class="ritual-btn" id="mainBtn" onclick="initiateOracle()">SYNTHESIZE DESTINY</button>
+        <p style="font-size: 10px; color: #555; margin-top: 15px; letter-spacing: 1px;">THE FUTURE • V9.5</p>
+    </div>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="statusText" style="font-style: italic; color: var(--gold); font-size: 13px;">Analyzing Birth Chart...</p>
+    </div>
+
+    <div class="kundli-box" id="chart">
+        <svg class="kundli-svg" viewBox="0 0 400 400">
+            <path d="M0 0 L400 400 M400 0 L0 400 M200 0 L400 200 L200 400 L0 200 Z" />
+            <rect x="0" y="0" width="400" height="400" />
+        </svg>
+        <div id="h1" style="position:absolute; top:80px; left:145px; font-size:10px;"></div>
+    </div>
+
+    <div id="result-card">
+        <h3 style="margin:0 0 10px 0; color:var(--gold); font-family: 'Cinzel'; font-size: 14px;">Cosmic Analysis</h3>
+        <div id="prediction-text" style="color: #e5e7eb;"></div>
+    </div>
+
+    <div class="payment-box" id="pay-box">
+        <div class="social-proof">🔥 1000+ Users Analyzed Today</div>
+        <button class="ritual-btn" onclick="unlockFull()">REVEAL FULL DESTINY (₹50)</button>
+        <p style="color:#ff6b6b; font-size:12px; margin-top:10px;">⏳ Limited Offer: ₹50 ending soon</p>
+    </div>
+</div>
+
+<div style="max-width:480px; margin:20px auto; padding:20px; text-align:left;">
+    <h2 style="color:var(--gold); font-size:18px;">Malayalam Astrology & Kundli</h2>
+    <p style="font-size:14px; color:#aaa; line-height:1.6;">
+        കേരളത്തിലെ ഏറ്റവും മികച്ച ജ്യോതിഷ സേവനം. ഇവിടെ നിങ്ങൾക്ക് ജാതകം (Kundli), 
+        രാശി (Rashi), നക്ഷത്രം (Nakshatra) എന്നിവയുടെ കൃത്യമായ പ്രവചനങ്ങൾ ലഭിക്കും.
+    </p>
+</div>
+
+<script>
+    let userLat = 11.25; 
+    let userLon = 75.78;
+
+    function initiateOracle() {
+        const name = document.getElementById('name').value;
+        const dob = document.getElementById('dob').value;
+        const tob = document.getElementById('tob').value;
+        const mainBtn = document.getElementById('mainBtn');
+
+        if (!name || !dob || !tob) return alert("ദയവായി എല്ലാ വിവരങ്ങളും നൽകുക.");
+        
+        mainBtn.disabled = true;
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+
+        setTimeout(() => { fetchAstroData(dob, tob); }, 1500);
+    }
+
+    async function fetchAstroData(dob, tob) {
+        try {
+            const res = await fetch("https://adhi666.pythonanywhere.com/api/predict_expert", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ date: dob, time: tob, lat: userLat, lon: userLon })
+            });
+            const data = await res.json();
+            renderResults(data);
+        } catch (err) {
+            renderResults({ rashi: "Vrischikam", nakshatra: "Anizham" });
+        }
+    }
+
+    function renderResults(data) {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('chart').style.display = 'block';
+        document.getElementById('result-card').style.display = 'block';
+        document.getElementById('pay-box').style.display = 'block';
+
+        let rashi = data.rashi || "Vrischikam";
+        let nakshatra = data.nakshatra || "Anizham";
+
+        let text = `<b>ജ്യോതിഷ വിശകലനം:</b> നിങ്ങളുടെ രാശി <b>${rashi}</b>, നക്ഷത്രം <b>${nakshatra}</b> ആണെന്ന് കാണുന്നു.<br><br>`;
+        text += `<span style="color:#ff6b6b; font-weight:bold;">⚠️ നിങ്ങളുടെ ജാതകത്തിൽ ഒരു പ്രധാന ജീവിത മാറ്റം കാണുന്നു.</span> കൂടുതൽ വിവരങ്ങൾ ലഭിക്കാൻ റിപ്പോർട്ട് അൺലോക്ക് ചെയ്യുക.`;
+        
+        document.getElementById('prediction-text').innerHTML = text;
+    }
+
+    function unlockFull() {
+        alert("Payment പൂർത്തിയാക്കിയ ശേഷം സ്ക്രീൻഷോട്ട് വാട്സാപ്പ് ചെയ്യുക.");
+        window.location.href = "https://rzp.io/l/YOUR_LINK";
+    }
+</script>
+
+</body>
+</html>
             margin: 20px auto; 
             padding: 25px; 
             background: var(--card); 
