@@ -168,7 +168,6 @@
             document.getElementById('setup').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
-            // UX Status Sequence
             const statusText = document.getElementById('statusText');
             setTimeout(() => { statusText.innerText = "Aligning Celestial Spheres..."; }, 1500);
             setTimeout(() => { statusText.innerText = "Finalizing Destiny Patterns..."; }, 3000);
@@ -207,9 +206,34 @@
         }
 
         function unlockFull() {
-            alert("Payment പൂർത്തിയാക്കിയ ശേഷം സ്ക്രീൻഷോട്ട് വാട്സാപ്പ് ചെയ്യുക. നിങ്ങൾക്ക് ഡീറ്റെയിൽഡ് റിപ്പോർട്ട് ലഭിക്കുന്നതാണ്.");
-            // Replace with your Razorpay link
-            window.location.href = "https://rzp.io/l/YOUR_LINK";
+            const name = document.getElementById('name').value;
+            const dob = document.getElementById('dob').value;
+            const tob = document.getElementById('tob').value;
+
+            const upiId = "dream9thbetalian@okicici";
+            const upiName = "Muhammed Adhinan"; 
+            const amount = "50.00";
+            const note = `A3F Report for ${name}`;
+
+            const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(upiName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+            window.location.href = upiUrl;
+
+            setTimeout(() => {
+                const whatsappNum = "916235026761"; 
+                const msg = `🔮 *A3F STELLAR REPORT REQUEST*\n\n` +
+                            `✅ ഞാൻ പെയ്‌മെന്റ് പൂർത്തിയാക്കി.\n\n` +
+                            `👤 *പേര്:* ${name}\n` +
+                            `📅 *DOB:* ${dob}\n` +
+                            `⏰ *Time:* ${tob}\n\n` +
+                            `ദയവായി എന്റെ ഡീറ്റെയിൽഡ് റിപ്പോർട്ട് അയച്ചു തരൂ.`;
+
+                const waUrl = `https://wa.me/${whatsappNum}?text=${encodeURIComponent(msg)}`;
+                const btn = document.querySelector('.payment-box .ritual-btn');
+                btn.innerText = "SEND DETAILS & SCREENSHOT";
+                btn.style.background = "linear-gradient(45deg, #25D366, #128C7E)";
+                btn.onclick = () => { window.location.href = waUrl; };
+                alert("പെയ്‌മെന്റ് കഴിഞ്ഞ് സ്ക്രീൻഷോട്ട് അയക്കാൻ വാട്സാപ്പ് ബട്ടൺ അമർത്തുക.");
+            }, 3000);
         }
     </script>
 </body>
